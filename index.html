@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>STRIKE — 30-Day Self-Defense Program</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --red: #e63946;
+    --red-dark: #b02030;
+    --gold: #f4a261;
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --bg4: #222222;
+    --text: #f0ece4;
+    --muted: #888;
+    --border: #2a2a2a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Noise overlay ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  .bebas { font-family: 'Bebas Neue', sans-serif; }
+  .condensed { font-family: 'Barlow Condensed', sans-serif; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 6rem 6vw 4rem;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 80% 50%, rgba(230,57,70,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 10% 80%, rgba(244,162,97,0.06) 0%, transparent 60%),
+      linear-gradient(160deg, #0d0d0d 0%, #0a0a0a 100%);
+    z-index: 0;
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(230,57,70,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(230,57,70,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 70% 70% at 70% 50%, black, transparent);
+  }
+  .hero > * { position: relative; z-index: 1; }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(230,57,70,0.12);
+    border: 1px solid rgba(230,57,70,0.3);
+    padding: 6px 16px; border-radius: 2px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--red); margin-bottom: 2rem;
+  }
+  .hero-tag span { width: 6px; height: 6px; background: var(--red); border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
+
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 14vw, 13rem);
+    line-height: 0.88;
+    letter-spacing: -2px;
+    margin-bottom: 2rem;
+  }
+  .hero h1 .outline {
+    -webkit-text-stroke: 2px rgba(240,236,228,0.25);
+    color: transparent;
+  }
+  .hero h1 .accent { color: var(--red); }
+
+  .hero-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 1px;
+    max-width: 520px;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+  }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+  .stat-item { text-align: left; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem; color: var(--red);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-top: 4px;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--red);
+    color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 14px 36px;
+    border: none; cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+  }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+
+  /* ── PROGRESS STRIP ── */
+  .progress-strip {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 6vw;
+    display: flex; align-items: center; gap: 24px;
+    flex-wrap: wrap; position: relative; z-index: 2;
+  }
+  .progress-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--muted); white-space: nowrap;
+  }
+  .progress-bar-wrap {
+    flex: 1; height: 6px;
+    background: var(--bg4); border-radius: 0;
+    overflow: hidden; min-width: 120px;
+  }
+  .progress-bar-fill {
+    height: 100%; background: linear-gradient(90deg, var(--red), var(--gold));
+    transition: width 0.8s cubic-bezier(.4,0,.2,1);
+    border-radius: 0;
+  }
+  .progress-pct {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem; color: var(--red);
+  }
+  .progress-days {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .btn-reset {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); background: none; border: 1px solid var(--border);
+    padding: 6px 14px; cursor: pointer; transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-reset:hover { color: var(--red); border-color: var(--red); }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    padding: 64px 6vw 32px;
+    position: relative;
+  }
+  .section-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--red); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    letter-spacing: 1px; line-height: 1;
+  }
+  .section-title .outline {
+    -webkit-text-stroke: 2px rgba(240,236,228,0.2);
+    color: transparent;
+  }
+
+  /* ── WEEK LABEL ── */
+  .week-label {
+    padding: 12px 6vw;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 16px;
+  }
+  .week-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* ── GRID ── */
+  .days-grid {
+    padding: 0 6vw 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  /* ── DAY CARD ── */
+  .day-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+    overflow: hidden;
+  }
+  .day-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: var(--border);
+    transition: background 0.2s;
+  }
+  .day-card:hover { border-color: rgba(230,57,70,0.4); transform: translateY(-2px); }
+  .day-card:hover::before { background: var(--red); }
+
+  .day-card.completed { border-color: rgba(244,162,97,0.3); }
+  .day-card.completed::before { background: var(--gold); }
+  .day-card.completed .card-header { background: rgba(244,162,97,0.04); }
+
+  .day-card.active-expand { border-color: var(--red); }
+  .day-card.active-expand::before { background: var(--red); }
+
+  .card-header {
+    padding: 20px 20px 16px;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 12px;
+  }
+  .card-left { flex: 1; }
+  .card-day-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 4px;
+  }
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem; font-weight: 700;
+    letter-spacing: 0.5px; line-height: 1.2;
+  }
+  .card-meta {
+    display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap;
+  }
+  .card-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+    padding: 3px 8px;
+    border: 1px solid;
+  }
+  .badge-level { border-color: rgba(230,57,70,0.4); color: var(--red); }
+  .badge-dur { border-color: var(--border); color: var(--muted); }
+
+  .card-right { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+
+  .check-btn {
+    width: 32px; height: 32px;
+    border: 2px solid var(--border);
+    background: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .check-btn:hover { border-color: var(--gold); }
+  .check-btn.checked { border-color: var(--gold); background: var(--gold); }
+  .check-btn svg { width: 16px; height: 16px; }
+
+  .expand-icon {
+    color: var(--muted); font-size: 1.2rem;
+    transition: transform 0.3s;
+    font-family: 'Barlow Condensed', sans-serif;
+    line-height: 1;
+  }
+  .day-card.active-expand .expand-icon { transform: rotate(180deg); color: var(--red); }
+
+  /* ── EXPANDED CONTENT ── */
+  .card-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(.4,0,.2,1);
+  }
+  .card-body.open { max-height: 900px; }
+  .card-body-inner {
+    padding: 0 20px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .steps-section { margin-top: 20px; }
+  .steps-heading {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px;
+  }
+  .steps-list { list-style: none; }
+  .steps-list li {
+    display: flex; gap: 12px;
+    font-size: 0.88rem; color: #b0aca4;
+    line-height: 1.5;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .steps-list li:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem; color: var(--red);
+    flex-shrink: 0; width: 18px; text-align: center;
+  }
+
+  /* ── VIDEO ── */
+  .video-section { margin-top: 20px; }
+  .video-heading { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  /* Thumbnail click-to-play */
+  .yt-thumb { position: relative; width: 100%; padding-bottom: 56.25%; cursor: pointer; background: #000; overflow: hidden; border: 1px solid var(--border); }
+  .yt-thumb img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; transition: opacity 0.3s; }
+  .yt-thumb:hover img { opacity: 0.75; }
+  .yt-play-btn { position: absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:64px; height:64px; background:var(--red); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:transform 0.2s, background 0.2s; z-index:2; box-shadow:0 4px 24px rgba(230,57,70,0.5); }
+  .yt-thumb:hover .yt-play-btn { transform:translate(-50%,-50%) scale(1.1); background:var(--red-dark); }
+  .yt-play-btn svg { width:26px; height:26px; margin-left:4px; }
+  .yt-label { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(0,0,0,0.85)); padding:20px 12px 10px; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.7); }
+  .yt-frame { position:relative; width:100%; padding-bottom:56.25%; border:1px solid var(--border); }
+  .yt-frame iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
+  .yt-watch-link { display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--red); text-decoration:none; border-bottom:1px solid rgba(230,57,70,0.3); padding-bottom:1px; transition:color 0.2s; }
+  .yt-watch-link:hover { color:var(--gold); }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    margin-top: 80px;
+    padding: 40px 6vw;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem; letter-spacing: 3px;
+  }
+  .footer-logo span { color: var(--red); }
+  .footer-copy {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem; letter-spacing: 2px;
+    color: var(--muted); text-transform: uppercase;
+  }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--red); }
+
+  /* ── Mobile ── */
+  @media (max-width: 640px) {
+    .hero { padding: 4rem 5vw 3rem; min-height: 80vh; }
+    .hero-stats { gap: 1.8rem; }
+    .days-grid { padding: 0 4vw 20px; grid-template-columns: 1fr; gap: 12px; }
+    .section-header { padding: 40px 4vw 20px; }
+    .progress-strip { padding: 18px 4vw; }
+    .week-label { padding: 10px 4vw; }
+  }
+
+  /* ── Animations ── */
+  .fade-in { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: none; } }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+  .delay-5 { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-tag fade-in"><span></span> Program Active — 30 Days</div>
+  <h1 class="fade-in delay-1">
+    <span class="accent">STRIKE</span><br>
+    <span class="outline">DEFEND</span><br>
+    SURVIVE
+  </h1>
+  <p class="hero-sub fade-in delay-2">
+    A structured 30-day self-defense curriculum. Build real-world skills — stance, striking, blocking, kicking — from beginner to capable.
+  </p>
+
+  <div class="hero-stats fade-in delay-3">
+    <div class="stat-item">
+      <div class="stat-num">30</div>
+      <div class="stat-label">Training Days</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Disciplines</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">15–45</div>
+      <div class="stat-label">Min / Session</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Equipment Needed</div>
+    </div>
+  </div>
+
+  <a href="#program" class="btn-primary fade-in delay-4">
+    ▶ &nbsp;Start Training
+  </a>
+</section>
+
+<!-- ══ PROGRESS ══ -->
+<div class="progress-strip" id="progressStrip">
+  <div class="progress-label">Your Progress</div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+  </div>
+  <div class="progress-pct" id="progressPct">0%</div>
+  <div class="progress-days" id="progressDays">0 / 30 days complete</div>
+  <button class="btn-reset" onclick="resetProgress()">Reset</button>
+</div>
+
+<!-- ══ PROGRAM ══ -->
+<div id="program">
+  <div class="section-header">
+    <div class="section-eyebrow">// 30-Day Curriculum</div>
+    <div class="section-title">THE <span class="outline">PROGRAM</span></div>
+  </div>
+</div>
+
+<div id="daysContainer"></div>
+
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer">
+  <div class="footer-logo">STR<span>I</span>KE</div>
+  <div class="footer-copy">Train hard. Stay safe. 30-Day Self-Defense Program.</div>
+</footer>
+
+<script>
+
+function playVideo(thumbEl, videoId) {
+  const wrap = thumbEl.parentElement;
+  wrap.innerHTML = `
+    <div class="yt-frame">
+      <iframe
+        src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <a class="yt-watch-link" href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener">
+      ↗ Open on YouTube
+    </a>`;
+}
+
+// ══ DATA ══
+const VIDEO_IDS = [
+  'vZy0QKQkR8k', // Day 1 - Stance
+  'kKDHdsVN0b8', // Day 2 - Punch
+  '6o0b5X6X9XQ', // Day 3 - Blocks
+  '1a0hV7m6g3I', // Day 4 - Kick
+  'ml6cT4AZdqI', // Day 5 - Fitness
+];
+
+// Cycling through real video IDs for all 30 days
+function getVideoId(dayIndex) {
+  return VIDEO_IDS[dayIndex % VIDEO_IDS.length];
+}
+
+const DAYS = [
+  // WEEK 1
+  { title: "Fighting Stance", category: "Foundation", level: "Beginner", duration: "15 min",
+    steps: [
+      "Stand with feet shoulder-width apart, dominant foot slightly back.",
+      "Bend your knees slightly — stay light on the balls of your feet.",
+      "Raise your hands to chin height, elbows tucked to protect your ribs.",
+      "Keep your chin down and eyes forward — never lose sight of your opponent.",
+      "Practice shifting weight forward and backward while maintaining balance.",
+      "Shadow box 2×2 min, focusing only on your stance and posture."
+    ]
+  },
+  { title: "Jab & Cross", category: "Striking", level: "Beginner", duration: "20 min",
+    steps: [
+      "From your stance, extend your lead hand in a straight line — this is the jab.",
+      "Rotate your fist so palm faces down at full extension. Snap it back immediately.",
+      "The cross is a power punch from your rear hand — rotate your hip and shoulder.",
+      "Exhale sharply with every punch to engage your core.",
+      "Practice jab-cross combo 3×3 min on a wall or shadow.",
+      "Focus on speed over power at this stage — form first."
+    ]
+  },
+  { title: "Basic Blocks", category: "Defense", level: "Beginner", duration: "20 min",
+    steps: [
+      "High block: Raise your forearm above your head to deflect downward strikes.",
+      "Inside block: Sweep an incoming strike outward using your forearm.",
+      "Outside block: Sweep inward against strikes targeting your center.",
+      "Partner drill: Have a partner throw slow punches, practice each block type.",
+      "Always return to guard position immediately after each block.",
+      "Drill each block 20 reps, then randomize with a partner or mirror."
+    ]
+  },
+  { title: "Front Kick", category: "Kicking", level: "Beginner", duration: "25 min",
+    steps: [
+      "From stance, lift your knee toward your chest — this is the chamber.",
+      "Thrust your heel forward, extending through the hip for power.",
+      "Strike with the ball of your foot (toes pulled back) or heel.",
+      "Snap the kick back to chamber before setting your foot down.",
+      "Practice slow-motion kicks 10 reps per leg, then build speed.",
+      "Aim for a target at belt height — accuracy before force."
+    ]
+  },
+  { title: "Conditioning Circuit", category: "Fitness", level: "Beginner", duration: "30 min",
+    steps: [
+      "Warm up: 3 min jump rope or high knees.",
+      "Burpees ×15 — build explosive full-body power.",
+      "Push-ups ×20 — develop punching strength.",
+      "Jump squats ×15 — build kick power and footwork endurance.",
+      "Plank hold 60 sec — core stability is essential in any fight.",
+      "Cool down: 5 min light stretching, focus on hips and shoulders."
+    ]
+  },
+  { title: "Wrist & Grip Escape", category: "Grappling", level: "Beginner", duration: "20 min",
+    steps: [
+      "When grabbed by the wrist, rotate toward the attacker's thumb — the weakest point.",
+      "Simultaneously pull your arm sharply while rotating — this breaks most grips.",
+      "Step back to create distance as soon as you break free.",
+      "Practice both wrists, both directions. Speed is the key variable.",
+      "Combine with a palm strike or push to create distance after escape.",
+      "Drill with a partner at 50% resistance, then gradually increase."
+    ]
+  },
+  { title: "Rest & Recovery", category: "Recovery", level: "All", duration: "15 min",
+    steps: [
+      "Light full-body stretching — hold each stretch 30 sec.",
+      "Foam roll or massage sore areas, especially calves, quads, and shoulders.",
+      "Mental visualization: replay your week's techniques in your mind.",
+      "Hydrate well and ensure adequate protein intake today.",
+      "Watch at least one technique video and take mental notes.",
+      "Plan next week's training — consistency beats intensity every time."
+    ]
+  },
+  // WEEK 2
+  { title: "Footwork Fundamentals", category: "Foundation", level: "Beginner", duration: "20 min",
+    steps: [
+      "Step-and-drag: always move the lead foot first when advancing.",
+      "Never cross your feet — maintain your stance width at all times.",
+      "Practice the triangle footwork pattern: forward, diagonal, back.",
+      "Add a jab-cross combination to each directional movement.",
+      "Mirror drill: move reactively for 2 min without throwing punches.",
+      "Finish with 3 min of free-form shadow boxing emphasizing foot movement."
+    ]
+  },
+  { title: "Hook Punch", category: "Striking", level: "Intermediate", duration: "25 min",
+    steps: [
+      "From guard, rotate your lead shoulder forward and pivot on your lead foot.",
+      "Keep your elbow at 90° — the hook travels horizontally, not downward.",
+      "Your fist should be parallel to the floor at impact.",
+      "Combine: jab → cross → lead hook for the classic 1-2-3 combo.",
+      "Shadow box 3×3 min focusing on the hook only, then add combinations.",
+      "Ensure your guard hand protects your chin while throwing the hook."
+    ]
+  },
+  { title: "Slipping Punches", category: "Defense", level: "Intermediate", duration: "20 min",
+    steps: [
+      "A slip is moving your head off the centerline to avoid a punch.",
+      "Slip outside: bend your knees and lean your head outside the punch.",
+      "Slip inside: lean your head to the inside — sets up a counter.",
+      "Keep your eyes on the attacker throughout the slip.",
+      "Practice slipping a partner's slow jabs, both inside and outside.",
+      "Counter immediately after slipping — defense flows into offense."
+    ]
+  },
+  { title: "Roundhouse Kick", category: "Kicking", level: "Intermediate", duration: "30 min",
+    steps: [
+      "Pivot on your support foot (heel out) as you chamber the kicking leg.",
+      "Drive your hip through the target — the hip is the power source.",
+      "Contact with the shin or instep, not the toe.",
+      "Keep your guard up — your hands should not drop during the kick.",
+      "Practice slowly 10 reps per leg, then increase speed.",
+      "Add to combinations: jab → cross → rear roundhouse kick."
+    ]
+  },
+  { title: "Pad Work Conditioning", category: "Fitness", level: "Intermediate", duration: "35 min",
+    steps: [
+      "Warm up with 5 min shadow boxing — full intensity.",
+      "3×3 min rounds: jab, cross, hook, roundhouse kick combinations.",
+      "Rest 60 sec between rounds — active rest (walk, breathe).",
+      "Focus on speed and snap — not strength — on pads.",
+      "Finish: 3×1 min max-output shadow boxing for cardio peak.",
+      "Cool down: stretch hips, hamstrings, and shoulders thoroughly."
+    ]
+  },
+  { title: "Clinch & Control", category: "Grappling", level: "Intermediate", duration: "25 min",
+    steps: [
+      "A clinch is used to neutralize punches at close range.",
+      "Wrap one or both arms around the opponent's arms, controlling their elbows.",
+      "Use your head position and body weight to off-balance the opponent.",
+      "From clinch: knee strikes to the thigh or midsection are effective.",
+      "Break the clinch by framing (pushing the face or shoulder) and stepping back.",
+      "Drill clinch entry and exit with a partner, rotating slowly."
+    ]
+  },
+  { title: "Active Recovery", category: "Recovery", level: "All", duration: "15 min",
+    steps: [
+      "Light yoga or mobility flow — sun salutations work well.",
+      "Hip flexor stretch: 60 sec each side (essential for kickers).",
+      "Shoulder circles and cross-body arm swings to release tension.",
+      "Balance work: stand on one foot 30 sec each side, eyes closed.",
+      "Review your technique videos — identify one thing to improve.",
+      "Journaling: write 3 things you improved this week."
+    ]
+  },
+  // WEEK 3
+  { title: "Uppercut Punch", category: "Striking", level: "Intermediate", duration: "25 min",
+    steps: [
+      "Dip your rear shoulder slightly, then drive upward from the legs.",
+      "The uppercut travels vertically — target the chin or solar plexus.",
+      "Rotate your hips fully into the punch for power.",
+      "Keep your elbow in, not flaring outward.",
+      "Combo: jab → cross → rear uppercut → lead hook.",
+      "Shadow box or pad work 3×3 min using this combination."
+    ]
+  },
+  { title: "Parrying & Redirecting", category: "Defense", level: "Intermediate", duration: "20 min",
+    steps: [
+      "A parry is a light deflection — not a block. Touch, redirect, counter.",
+      "Lead hand parry: push your opponent's jab slightly to the outside.",
+      "Rear hand parry: deflect the cross downward and inside.",
+      "The redirect creates an opening — immediately counter-punch.",
+      "Drill with a partner at 50%, then 70% speed.",
+      "Combine parry with a slip for double-layered defense."
+    ]
+  },
+  { title: "Side Kick", category: "Kicking", level: "Intermediate", duration: "25 min",
+    steps: [
+      "Chamber: lift your knee across your body (hip loads sideways).",
+      "Thrust your heel directly outward, perpendicular to your body.",
+      "Strike with the heel or blade of the foot — not the toes.",
+      "Your support leg pivots so your hip drives behind the kick.",
+      "Targets: attacker's knee, hip, or midsection.",
+      "Practice slow-motion 15 reps per leg, then add speed."
+    ]
+  },
+  { title: "Strength & Power", category: "Fitness", level: "Intermediate", duration: "40 min",
+    steps: [
+      "Box jumps ×10 — develop explosive lower body for kicks.",
+      "Medicine ball slams ×12 — rotational power for punches.",
+      "Pull-ups ×8 (or TRX rows) — pulling strength for grappling.",
+      "Single-leg squats ×10 each side — stability and kick power.",
+      "Farmer carries (heavy objects) 30m — grip and core strength.",
+      "Finish: 5 min shadow boxing at 100% intensity."
+    ]
+  },
+  { title: "Takedown Defense", category: "Grappling", level: "Intermediate", duration: "30 min",
+    steps: [
+      "Sprawl: when opponent shoots for your legs, drive your hips backward and down.",
+      "Your weight goes on the attacker's upper back — this stops the takedown.",
+      "Stay on your toes in the sprawl — never let your knees touch the ground.",
+      "From the sprawl, transition to back control or stand back up.",
+      "Practice sprawl entry drill with a partner 20 times each.",
+      "Add a rear clinch with knee strikes as a follow-up from the sprawl."
+    ]
+  },
+  { title: "Street Awareness", category: "Mental", level: "All", duration: "20 min",
+    steps: [
+      "Situational awareness: identify exits in every room you enter.",
+      "The OODA loop: Observe, Orient, Decide, Act — train this mentally.",
+      "Recognize pre-attack indicators: bladed stance, hands hiding, eye darting.",
+      "De-escalation first: verbal confidence can stop most confrontations.",
+      "Practice mental scenarios: 'what would I do if...'",
+      "Review a real-world self-defense case study — analyze what worked and why."
+    ]
+  },
+  { title: "Rest Day", category: "Recovery", level: "All", duration: "10 min",
+    steps: [
+      "Full rest — no training today. Let your body rebuild.",
+      "Light walking (20–30 min) is fine and beneficial.",
+      "Prioritize 8+ hours of sleep — this is where improvement happens.",
+      "Eat a nutrient-dense meal with protein and complex carbs.",
+      "Mentally rehearse your best technique from this week.",
+      "Prepare your training space and plan tomorrow's session."
+    ]
+  },
+  // WEEK 4
+  { title: "Combination Mastery", category: "Striking", level: "Advanced", duration: "35 min",
+    steps: [
+      "The Elite 5: jab → cross → lead hook → rear uppercut → rear kick.",
+      "Start slow, calling out each strike. Build muscle memory.",
+      "Gradually increase speed over 5 rounds, 3 min each.",
+      "Focus on transitions — the movement between strikes should be seamless.",
+      "Add head movement between strikes: slip after the cross.",
+      "Finish with 2×2 min freestyle — no thinking, pure reaction."
+    ]
+  },
+  { title: "Evasion & Angles", category: "Defense", level: "Advanced", duration: "30 min",
+    steps: [
+      "Angle off: after blocking or slipping, step to a 45° angle.",
+      "This puts you beside the attacker — a superior position.",
+      "Practice: receive a jab → slip → step to the outside angle → counter.",
+      "Circle away from the power hand (rear hand) whenever possible.",
+      "Use angles to break out of corners and against walls.",
+      "Drill with a partner: one attacks, one evades and angles. Switch roles."
+    ]
+  },
+  { title: "Knee & Elbow Strikes", category: "Striking", level: "Advanced", duration: "30 min",
+    steps: [
+      "Elbow strike: drive the point of your elbow horizontally or diagonally.",
+      "Use elbows in close range — devastating at short distance.",
+      "Knee strike: grab the opponent's shoulders, pull down while driving knee up.",
+      "Target: midsection, thigh, or (with control) the face when clinching.",
+      "Combination: clinch entry → knee ×2 → push out → cross.",
+      "Pad drill: have a partner hold pads for knees and elbows, 3×2 min."
+    ]
+  },
+  { title: "Ground Escape Basics", category: "Grappling", level: "Advanced", duration: "35 min",
+    steps: [
+      "Avoid the ground in a street fight — multiple attackers are the danger.",
+      "If taken down, immediately roll to guard (face up, knees bent, feet on floor).",
+      "Bridge and roll: plant feet, drive hips up, roll attacker to the side.",
+      "Technical stand-up: one foot in, one knee up, use your hand to post.",
+      "Kick the knee of a standing attacker while on the ground to create space.",
+      "Practice each ground escape drill 10 reps with a partner."
+    ]
+  },
+  { title: "Speed & Agility", category: "Fitness", level: "Advanced", duration: "40 min",
+    steps: [
+      "Ladder drills (or taped lines): in-in-out-out, lateral shuffles, 5 min.",
+      "Reactive slipping: partner swings a rope, you slip left/right for 2×2 min.",
+      "Speed bag or fast shadow boxing focusing on hand speed, 3×2 min.",
+      "Lateral bounds ×10 each side — explosive hip power.",
+      "Reaction drill: partner holds up colored cards (or fingers), you respond.",
+      "Cool down: static stretching, 10 min full body."
+    ]
+  },
+  { title: "Scenario Training", category: "Mental", level: "Advanced", duration: "30 min",
+    steps: [
+      "Adrenal stress drill: do 20 burpees, then immediately defend a slow attack.",
+      "Simulate being grabbed from behind — practice rear bear hug escapes.",
+      "Multiple attacker scenario: shadow box moving between two marked spots.",
+      "Confined space drill: practice your techniques in a small 1m² area.",
+      "Verbal defense drill: de-escalate a mock confrontation out loud.",
+      "Debrief: what worked, what didn't, what would you change?"
+    ]
+  },
+  { title: "Defense Against Weapons", category: "Advanced", level: "Advanced", duration: "35 min",
+    steps: [
+      "IMPORTANT: The best defense against a weapon is distance and escape.",
+      "Knife defense principle: if you can run, run. Disarms are a last resort.",
+      "Redirecting a grab: use two hands on the weapon wrist, step offline.",
+      "Against a stick or bat: close the distance rapidly to smother the swing.",
+      "Empty-hand vs weapon: improvised tools (bag, jacket, chair) as shields.",
+      "Drill slow-motion weapon defense scenarios — never at full speed."
+    ]
+  },
+  // WEEK 5
+  { title: "Final Sparring Prep", category: "Striking", level: "Advanced", duration: "40 min",
+    steps: [
+      "Light technical sparring: 50% power, focus on technique over dominance.",
+      "Apply all striking, defense, and footwork learned in weeks 1–4.",
+      "Round structure: 3 min on / 1 min rest, 5 rounds.",
+      "Call out what you're about to do (jab! slip!) to stay cognitive.",
+      "Debrief after every round: what landed, what got through your guard.",
+      "End with a fist bump and mutual respect — sparring is mutual learning."
+    ]
+  },
+  { title: "Full Fitness Test", category: "Fitness", level: "Advanced", duration: "45 min",
+    steps: [
+      "Max push-ups in 2 min — record your score vs Day 5.",
+      "Max burpees in 2 min — record your score.",
+      "3×3 min shadow boxing — give 100% each round.",
+      "1 mile run or 1000m row — record your time.",
+      "Flexibility: can you kick to shoulder height? Test both legs.",
+      "Celebrate — this is real progress."
+    ]
+  },
+  { title: "Program Graduation", category: "Milestone", level: "All", duration: "30 min",
+    steps: [
+      "Review all 30 days: which techniques felt most natural?",
+      "Identify your top 3 favorite techniques — these are your go-to moves.",
+      "Create a personal 'defense plan' — what would you do in common scenarios?",
+      "Share your progress — teach someone one technique you mastered.",
+      "Plan your next 30 days: add weight training, Muay Thai class, or BJJ.",
+      "You trained for 30 days. You are not the same person who started. Well done."
+    ]
+  },
+];
+
+const WEEK_LABELS = ['Week 1 — Foundations', 'Week 2 — Building Skills', 'Week 3 — Intermediate Techniques', 'Week 4 — Advanced Training', 'Week 5 — Mastery & Testing'];
+
+// ══ RENDER ══
+function loadCompleted() {
+  try { return JSON.parse(localStorage.getItem('strike_completed') || '[]'); }
+  catch { return []; }
+}
+function saveCompleted(arr) {
+  localStorage.setItem('strike_completed', JSON.stringify(arr));
+}
+
+let completed = loadCompleted();
+let openCard = null;
+
+function updateProgress() {
+  const pct = Math.round((completed.length / 30) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('progressDays').textContent = `${completed.length} / 30 days complete`;
+}
+
+function resetProgress() {
+  if (!confirm('Reset all progress?')) return;
+  completed = [];
+  saveCompleted([]);
+  document.querySelectorAll('.day-card').forEach(c => {
+    c.classList.remove('completed');
+    const btn = c.querySelector('.check-btn');
+    btn.classList.remove('checked');
+    btn.innerHTML = checkIcon(false);
+  });
+  updateProgress();
+}
+
+function checkIcon(checked) {
+  if (checked) return `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10l5 5 7-8" stroke="#0a0a0a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  return `<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 10l5 5 7-8" stroke="#444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+function renderDays() {
+  const container = document.getElementById('daysContainer');
+  let html = '';
+  DAYS.forEach((day, i) => {
+    const weekIdx = Math.floor(i / 7);
+    const isWeekStart = i % 7 === 0;
+    const isDone = completed.includes(i);
+    const videoId = getVideoId(i);
+
+    if (isWeekStart) {
+      html += `<div class="week-label">${WEEK_LABELS[weekIdx] || 'Week ' + (weekIdx + 1)}</div>`;
+      html += `<div class="days-grid" id="week${weekIdx}">`;
+    }
+
+    html += `
+    <div class="day-card${isDone ? ' completed' : ''}" id="card${i}" onclick="toggleCard(${i}, event)">
+      <div class="card-header">
+        <div class="card-left">
+          <div class="card-day-num">Day ${i + 1}</div>
+          <div class="card-title">${day.title}</div>
+          <div class="card-meta">
+            <span class="card-badge badge-level">${day.level}</span>
+            <span class="card-badge badge-dur">${day.duration}</span>
+            <span class="card-badge badge-dur">${day.category}</span>
+          </div>
+        </div>
+        <div class="card-right">
+          <button class="check-btn${isDone ? ' checked' : ''}" onclick="toggleDone(${i}, event)" title="Mark complete">
+            ${checkIcon(isDone)}
+          </button>
+          <div class="expand-icon">▾</div>
+        </div>
+      </div>
+      <div class="card-body" id="body${i}">
+        <div class="card-body-inner">
+          <div class="steps-section">
+            <div class="steps-heading">// Training Steps</div>
+            <ul class="steps-list">
+              ${day.steps.map((s, si) => `<li><span class="step-num">${si + 1}</span><span>${s}</span></li>`).join('')}
+            </ul>
+          </div>
+          <div class="video-section">
+            <div class="video-heading">// Tutorial Video — Click to Play</div>
+            <div id="vwrap${i}">
+              <div class="yt-thumb" onclick="playVideo(this,'${videoId}')">
+                <img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="Day ${i+1} tutorial" loading="lazy"/>
+                <div class="yt-play-btn">
+                  <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="yt-label">▶ &nbsp;Play Tutorial Video</div>
+              </div>
+              <a class="yt-watch-link" href="https://www.youtube.com/watch?v=${videoId}" target="_blank" rel="noopener">
+                ↗ Open on YouTube if video doesn't play
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+    if ((i + 1) % 7 === 0 || i === DAYS.length - 1) {
+      html += `</div>`;
+    }
+  });
+  container.innerHTML = html;
+}
+
+function toggleCard(i, event) {
+  const card = document.getElementById('card' + i);
+  const body = document.getElementById('body' + i);
+  const isOpen = body.classList.contains('open');
+
+  // Close all
+  document.querySelectorAll('.card-body.open').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.day-card.active-expand').forEach(c => c.classList.remove('active-expand'));
+
+  if (!isOpen) {
+    body.classList.add('open');
+    card.classList.add('active-expand');
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+}
+
+function toggleDone(i, event) {
+  event.stopPropagation();
+  const card = document.getElementById('card' + i);
+  const btn = card.querySelector('.check-btn');
+  const idx = completed.indexOf(i);
+  if (idx === -1) {
+    completed.push(i);
+    card.classList.add('completed');
+    btn.classList.add('checked');
+    btn.innerHTML = checkIcon(true);
+  } else {
+    completed.splice(idx, 1);
+    card.classList.remove('completed');
+    btn.classList.remove('checked');
+    btn.innerHTML = checkIcon(false);
+  }
+  saveCompleted(completed);
+  updateProgress();
+}
+
+// ══ INIT ══
+renderDays();
+updateProgress();
+</script>
+</body>
+</html>
